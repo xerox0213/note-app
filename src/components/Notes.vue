@@ -8,7 +8,7 @@ const noteStore = useNote()
 
 <template>
   <div class="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-4">
-    <NoteCard v-for="note in noteStore.notes" :note="note"/>
+    <NoteCard v-for="note in noteStore.notes" :key="note.id" :note="note"/>
   </div>
 </template>
 
