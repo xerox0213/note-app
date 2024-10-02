@@ -21,7 +21,7 @@ const props = defineProps<Props>()
     <p>{{ `${note.content.slice(0, 50)}...` }}</p>
     <div class="flex gap-x-4">
       <div class="flex flex-grow flex-wrap gap-1.5">
-        <span class="text-gray-500" v-for="tag in note.tags">{{ `#${tag}` }}</span>
+        <span class="text-gray-500 text-sm" v-for="tag in note.tags">{{ `#${tag}` }}</span>
       </div>
       <div class="flex gap-1.5 items-start">
         <button>
