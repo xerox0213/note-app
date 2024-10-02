@@ -20,13 +20,17 @@ const removeNote = (noteId: number) => {
 const editNote = (noteId: number) => {
   editModalStore.displayEditModal(noteId, EditType.UPDATE)
 }
+
+const togglePinNote = (noteId: number) => {
+  noteStore.togglePinNote(noteId)
+}
 </script>
 
 <template>
   <div class="flex flex-col gap-y-3 p-4 rounded-md border border-gray-300 relative hover:shadow-lg transition-shadow">
     <div class="flex items-baseline gap-x-4">
       <h2 class="text-2xl font-semibold flex-grow">{{ note.title }}</h2>
-      <button>
+      <button @click="togglePinNote(note.id)">
         <TagIcon class="size-5 transition-colors hover:text-blue-500"
                  :class="{'text-gray-400' : !note.pinned, 'text-blue-500' : note.pinned}"/>
       </button>
