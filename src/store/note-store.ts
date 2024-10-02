@@ -7,6 +7,12 @@ export const useNote = defineStore('notes', () => {
 
     let id = 0;
 
+    const getNote = (noteId: number) => {
+        let note = notes.value.find((n) => n.id === noteId)
+        if (note) note = JSON.parse(JSON.stringify(note))
+        return note
+    }
+
     const addNote = (title: string, content: string, tags: string[]) => {
         const newNote: Note = {id: id++, title, content, tags, pinned: false}
         notes.value.push(newNote)
@@ -32,6 +38,7 @@ export const useNote = defineStore('notes', () => {
 
     return {
         notes,
+        getNote,
         addNote,
         updateNote,
         removeNote,
