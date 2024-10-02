@@ -38,7 +38,7 @@ const handleSubmit = () => {
     if (editType == EditType.UPDATE) {
       noteStore.updateNote(noteId, title.value, content.value, tags.value)
     } else {
-      noteStore.addNote(title.value, title.value, tags.value)
+      noteStore.addNote(title.value, content.value, tags.value)
     }
     closeEditModal()
   }
