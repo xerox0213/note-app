@@ -1,5 +1,5 @@
 import {defineStore} from "pinia";
-import {ref} from "vue";
+import {readonly, ref} from "vue";
 import {Note} from "../ts/types.ts";
 
 export const useNote = defineStore('notes', () => {
@@ -37,7 +37,7 @@ export const useNote = defineStore('notes', () => {
     }
 
     return {
-        notes,
+        notes: readonly(notes),
         getNote,
         addNote,
         updateNote,
