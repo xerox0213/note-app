@@ -4,16 +4,22 @@ import {Note} from "../ts/types.ts";
 import {PencilIcon, TrashIcon} from "@heroicons/vue/24/solid";
 import {TagIcon} from "@heroicons/vue/24/outline";
 import {useNote} from "../store/note-store.ts";
+import {useEditModal} from "../store/edit-modal-store.ts";
+import {EditType} from "../ts/enums.ts";
 
 type Props = { note: Note }
 const props = defineProps<Props>()
 
 const noteStore = useNote()
+const editModalStore = useEditModal()
 
 const removeNote = (noteId: number) => {
   noteStore.removeNote(noteId)
 }
 
+const editNote = (noteId: number) => {
+  editModalStore.displayEditModal(noteId, EditType.UPDATE)
+}
 </script>
 
 <template>
@@ -31,7 +37,7 @@ const removeNote = (noteId: number) => {
         <span class="text-gray-500 text-sm" v-for="tag in note.tags">{{ `#${tag}` }}</span>
       </div>
       <div class="flex gap-1.5 items-start">
-        <button>
+        <button @click="editNote(note.id)">
           <PencilIcon class="size-5 text-gray-400 transition-colors hover:text-teal-500"/>
         </button>
         <button @click="removeNote(note.id)">
