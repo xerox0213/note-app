@@ -8,7 +8,7 @@ export const useEditModal = defineStore("edit-modal", () => {
     const editType = ref<EditType>(EditType.ADD)
 
     const displayEditModal = (noteIdVal: number, editTypeVal: EditType) => {
-        if (editTypeVal == EditType.UPDATE) throw new Error("Note ID is invalid")
+        if (editTypeVal == EditType.UPDATE && noteIdVal < 0) throw new Error("Note ID is invalid")
         noteId.value = noteIdVal
         editType.value = editTypeVal
         isVisible.value = true
