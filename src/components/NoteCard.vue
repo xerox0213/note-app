@@ -3,9 +3,16 @@
 import {Note} from "../ts/types.ts";
 import {PencilIcon, TrashIcon} from "@heroicons/vue/24/solid";
 import {TagIcon} from "@heroicons/vue/24/outline";
+import {useNote} from "../store/note-store.ts";
 
 type Props = { note: Note }
 const props = defineProps<Props>()
+
+const noteStore = useNote()
+
+const removeNote = (noteId: number) => {
+  noteStore.removeNote(noteId)
+}
 
 </script>
 
@@ -27,7 +34,7 @@ const props = defineProps<Props>()
         <button>
           <PencilIcon class="size-5 text-gray-400 transition-colors hover:text-teal-500"/>
         </button>
-        <button>
+        <button @click="removeNote(note.id)">
           <TrashIcon class="size-5 text-gray-400 transition-colors hover:text-red-500"/>
         </button>
       </div>
