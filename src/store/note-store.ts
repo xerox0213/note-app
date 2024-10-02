@@ -14,7 +14,7 @@ export const useNote = defineStore('notes', () => {
     }
 
     const addNote = (title: string, content: string, tags: string[]) => {
-        const newNote: Note = {id: id++, title, content, tags: [...tags], pinned: false}
+        const newNote: Note = {id: id++, title, content, tags: tags.map((t) => t.toLowerCase()), pinned: false}
         notes.value.push(newNote)
     }
 
@@ -23,7 +23,7 @@ export const useNote = defineStore('notes', () => {
         if (note) {
             note.title = title
             note.content = content
-            note.tags = [...tags]
+            note.tags = tags.map((t) => t.toLowerCase())
         }
     }
 
