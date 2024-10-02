@@ -17,8 +17,16 @@ export const useSearchNote = defineStore("search-note", () => {
         return noteStore.notes
     })
 
+    const sortedNoteResults = computed(() => {
+        return noteResults.value.slice().sort((a, b) => {
+            if (a.pinned && !b.pinned) return -1;
+            if (!a.pinned && b.pinned) return 1;
+            return 0;
+        })
+    })
+
     return {
         inputUserSearch,
-        noteResults,
+        sortedNoteResults,
     }
 })
