@@ -28,7 +28,7 @@ export const useNote = defineStore('notes', () => {
     }
 
     const removeNote = (noteId: number) => {
-        notes.value.filter((n) => n.id !== noteId)
+        notes.value = notes.value.filter((n) => n.id !== noteId)
     }
 
     const togglePinNote = (noteId: number) => {
