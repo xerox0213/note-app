@@ -8,9 +8,8 @@ export const useNote = defineStore('notes', () => {
     let id = 0;
 
     const addNote = (title: string, content: string, tags: string[]) => {
-        const newNote: Note = {id, title, content, tags}
+        const newNote: Note = {id: id++, title, content, tags, pinned: false}
         notes.value.push(newNote)
-        id++
     }
 
     const updateNote = (noteId: number, title: string, content: string, tags: string[]) => {
@@ -26,10 +25,16 @@ export const useNote = defineStore('notes', () => {
         notes.value.filter((n) => n.id !== noteId)
     }
 
+    const togglePinNote = (noteId: number) => {
+        const note = notes.value.find((n) => n.id === noteId)
+        if (note) note.pinned = !note.pinned
+    }
+
     return {
         notes,
         addNote,
         updateNote,
-        removeNote
+        removeNote,
+        togglePinNote
     }
 })
