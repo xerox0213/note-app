@@ -27,7 +27,7 @@ const togglePinNote = (noteId: number) => {
 </script>
 
 <template>
-  <div class="flex flex-col gap-y-3 p-4 rounded-md border border-gray-300 relative hover:shadow-lg transition-shadow">
+  <div class="flex flex-col gap-y-3 p-4 bg-white rounded-md border border-gray-300 relative hover:shadow-lg transition-shadow">
     <div class="flex items-baseline gap-x-4">
       <h2 class="text-2xl font-semibold flex-grow">{{ note.title }}</h2>
       <button @click="togglePinNote(note.id)">
