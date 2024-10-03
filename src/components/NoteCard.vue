@@ -35,7 +35,7 @@ const togglePinNote = (noteId: number) => {
                  :class="{'text-gray-400' : !note.pinned, 'text-blue-500' : note.pinned}"/>
       </button>
     </div>
-    <p>{{ `${note.content.slice(0, 50)}...` }}</p>
+    <p class="whitespace-nowrap overflow-hidden text-ellipsis">{{ note.content}}</p>
     <div class="flex gap-x-4">
       <div class="flex flex-grow flex-wrap gap-1.5">
         <span class="text-gray-500 text-sm" v-for="tag in note.tags">{{ `#${tag}` }}</span>
