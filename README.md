@@ -1,6 +1,6 @@
-# Note-app
+# Notes app
 
-Note-app is a simple, yet efficient note-taking application built with **Vue.js**, **TypeScript**, and **Tailwind CSS**. It allows users to create, edit, delete, and pin notes, with seamless data persistence using the browser's **local storage**.
+Notes app is a simple, yet efficient note-taking application built with **Vue.js**, **TypeScript**, and **Tailwind CSS**. It allows users to create, edit, delete, and pin notes, with seamless data persistence using the browser's **local storage**.
 
 ## Features
 
