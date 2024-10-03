@@ -7,7 +7,7 @@ export const useNote = defineStore('notes', () => {
     const savedNotes = getData("notes")
     const notes = ref<Note[]>(savedNotes ? JSON.parse(savedNotes) : [])
 
-    let id = notes.value.length
+    let id = notes.value.length !== 0 ? notes.value[notes.value.length - 1].id + 1 : 0
 
     const search = ref<string>("")
     const cleanedSearch = computed(() => search.value.trim().toLowerCase())
