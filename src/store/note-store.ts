@@ -25,7 +25,7 @@ export const useNote = defineStore('notes', () => {
     })
 
     const sortedNotes = computed(() => {
-        return filteredNotes.value.sort((a, b) => {
+        return filteredNotes.value.slice().sort((a, b) => {
             if (a.pinned && !b.pinned) return -1
             else if (!a.pinned && b.pinned) return 1
             else return 0
