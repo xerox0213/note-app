@@ -1,11 +1,17 @@
 import {defineStore} from "pinia";
 import {computed, ref} from "vue";
 import {Note} from "../ts/types.ts";
+import {getData, persistData} from "../utils/localstorage.ts";
 
 export const useNote = defineStore('notes', () => {
-    const notes = ref<Note[]>([])
+    const savedNotes = getData("notes")
+    const notes = ref<Note[]>(savedNotes ? JSON.parse(savedNotes) : [])
+
+    let id = notes.value.length
+
     const search = ref<string>("")
     const cleanedSearch = computed(() => search.value.trim().toLowerCase())
+
     const filteredNotes = computed(() => {
         if (cleanedSearch.value) {
             return notes.value.filter((n) => {
@@ -17,6 +23,7 @@ export const useNote = defineStore('notes', () => {
 
         return notes.value
     })
+
     const sortedNotes = computed(() => {
         return filteredNotes.value.sort((a, b) => {
             if (a.pinned && !b.pinned) return -1
@@ -24,8 +31,6 @@ export const useNote = defineStore('notes', () => {
             else return 0
         })
     })
-
-    let id = 0;
 
     const getNote = (noteId: number) => {
         let note = notes.value.find((n) => n.id === noteId)
@@ -36,6 +41,7 @@ export const useNote = defineStore('notes', () => {
     const addNote = (title: string, content: string, tags: string[]) => {
         const newNote: Note = {id: id++, title, content, tags: tags.map((t) => t.toLowerCase()), pinned: false}
         notes.value.push(newNote)
+        persistData("notes", notes.value)
     }
 
     const updateNote = (noteId: number, title: string, content: string, tags: string[]) => {
@@ -44,16 +50,21 @@ export const useNote = defineStore('notes', () => {
             note.title = title
             note.content = content
             note.tags = tags.map((t) => t.toLowerCase())
+            persistData("notes", notes.value)
         }
     }
 
     const removeNote = (noteId: number) => {
         notes.value = notes.value.filter((n) => n.id !== noteId)
+        persistData("notes", notes.value)
     }
 
     const togglePinNote = (noteId: number) => {
         const note = notes.value.find((n) => n.id === noteId)
-        if (note) note.pinned = !note.pinned
+        if (note) {
+            note.pinned = !note.pinned
+            persistData("notes", notes.value)
+        }
     }
 
     const makeSearch = (input: string) => search.value = input
