@@ -5,10 +5,14 @@ import {Note} from "../ts/types.ts";
 export const useNote = defineStore('notes', () => {
     const notes = ref<Note[]>([])
     const search = ref<string>("")
-    const cleanedSearch = computed(() => search.value.trim())
+    const cleanedSearch = computed(() => search.value.trim().toLowerCase())
     const filteredNotes = computed(() => {
         if (cleanedSearch.value) {
-            return notes.value.filter((n) => n.title.includes(cleanedSearch.value))
+            return notes.value.filter((n) => {
+                const includesInTitle = n.title.toLowerCase().includes(cleanedSearch.value)
+                const includesInTags = n.tags.findIndex((t) => t.includes(cleanedSearch.value)) != -1
+                return includesInTitle || includesInTags
+            })
         }
 
         return notes.value
@@ -52,12 +56,15 @@ export const useNote = defineStore('notes', () => {
         if (note) note.pinned = !note.pinned
     }
 
+    const makeSearch = (input: string) => search.value = input
+
     return {
         notes: sortedNotes,
         getNote,
         addNote,
         updateNote,
         removeNote,
-        togglePinNote
+        togglePinNote,
+        makeSearch
     }
 })
