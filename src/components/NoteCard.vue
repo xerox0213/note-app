@@ -8,7 +8,7 @@ import {useEditModal} from "../store/edit-modal-store.ts";
 import {EditType} from "../ts/enums.ts";
 
 type Props = { note: Note }
-const props = defineProps<Props>()
+defineProps<Props>()
 
 const noteStore = useNote()
 const editModalStore = useEditModal()

@@ -2,7 +2,7 @@
 
 type Props = { closeModal: () => void }
 
-const props = defineProps<Props>()
+defineProps<Props>()
 </script>
 
 <template>
