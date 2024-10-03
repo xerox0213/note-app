@@ -13,11 +13,12 @@ const onBeforeLeave = (el: Element) => {
 </script>
 
 <template>
-  <div class="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-4">
+  <div v-if="noteStore.notes.length > 0" class="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-4">
     <TransitionGroup @before-leave="onBeforeLeave" name="list">
       <NoteCard v-for="note in noteStore.notes" :key="note.id" :note="note"/>
     </TransitionGroup>
   </div>
+  <h1 v-else class="text-center text-3xl text-gray-400">No notes</h1>
 </template>
 
 <style scoped>
