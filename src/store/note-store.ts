@@ -1,9 +1,25 @@
 import {defineStore} from "pinia";
-import {readonly, ref} from "vue";
+import {computed, ref} from "vue";
 import {Note} from "../ts/types.ts";
 
 export const useNote = defineStore('notes', () => {
     const notes = ref<Note[]>([])
+    const search = ref<string>("")
+    const cleanedSearch = computed(() => search.value.trim())
+    const filteredNotes = computed(() => {
+        if (cleanedSearch.value) {
+            return notes.value.filter((n) => n.title.includes(cleanedSearch.value))
+        }
+
+        return notes.value
+    })
+    const sortedNotes = computed(() => {
+        return filteredNotes.value.sort((a, b) => {
+            if (a.pinned && !b.pinned) return -1
+            else if (!a.pinned && b.pinned) return 1
+            else return 0
+        })
+    })
 
     let id = 0;
 
@@ -37,7 +53,7 @@ export const useNote = defineStore('notes', () => {
     }
 
     return {
-        notes: readonly(notes),
+        notes: sortedNotes,
         getNote,
         addNote,
         updateNote,
