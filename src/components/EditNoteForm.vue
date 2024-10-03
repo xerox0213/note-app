@@ -67,13 +67,15 @@ const handleSubmit = () => {
     </div>
     <div>
       <label for="note-tags" class="block text-gray-400 mb-1.5">TAGS</label>
-      <div class="flex flex-wrap gap-2 mb-1.5">
-        <div :key="tag" v-for="tag in tags" class="flex items-center gap-2 bg-gray-100 py-1 px-3 rounded">
-          <span>{{ `#${tag}` }}</span>
-          <button @click="deleteTag(tag)">
-            <XMarkIcon class="size-4 text-black"/>
-          </button>
-        </div>
+      <div class="flex flex-wrap gap-2 mb-1.5 min-h-8">
+        <TransitionGroup name="list">
+          <div :key="tag" v-for="tag in tags" class="flex items-center gap-2 bg-gray-100 py-1 px-3 rounded">
+            <span>{{ `#${tag}` }}</span>
+            <button @click="deleteTag(tag)">
+              <XMarkIcon class="size-4 text-black"/>
+            </button>
+          </div>
+        </TransitionGroup>
       </div>
       <div class="flex items-center gap-x-2">
         <input v-model="inputTag" type="text" placeholder="Add tag"
@@ -90,5 +92,18 @@ const handleSubmit = () => {
 </template>
 
 <style scoped>
+.list-move,
+.list-enter-active,
+.list-leave-active {
+  transition: all .2s ease;
+}
 
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+}
+
+.list-leave-active {
+  position: absolute;
+}
 </style>
